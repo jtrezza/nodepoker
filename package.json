@@ -1,0 +1,11 @@
+{
+  "name": "nodepoker",
+  "version": "0.0.1",
+  "description": "A realtime poker game made with node.js and socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Trezza <im@jtrezza.com> (http://jtrezza.com)",
+  "license": "MIT"
+}
