@@ -6,6 +6,26 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtrezza/nodepoker.git"
+  },
   "author": "Jose Trezza <im@jtrezza.com> (http://jtrezza.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "bootstrap-sass": "^3.3.5",
+    "express": "^4.13.0",
+    "jquery": "^2.1.4",
+    "socket.io": "^1.3.5",
+    "swig": "^1.4.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-uglify": "^1.2.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }

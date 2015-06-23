@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "Playing Cards";
+    src: url("../fonts/cards.ttf");
+}
+.cards {
+    font-family: "Playing Cards";
+    font-size: 6em;
+}
