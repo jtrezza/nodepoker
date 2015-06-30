@@ -1,44 +1,49 @@
 
 var waiting = 0,
-    playing = 1,
+    playing = 1;
 
-    table = module.exports = {
-    players: 0,
-    current_turn: undefined,
-    status: waiting,
-    small_blind: 10,
-    big_blind: 20,
-    time_per_turn: 10000,
-    current_dealer: undefined,
-    current_bet: 0,
-    max_players: 5,
-    count_players: 0,
-    players: [],
-    deck: undefined
-};
+module.exports = function(){
 
-table.acceptsNewPlayers = function(){
-    return this.count_players < this.max_players;
-};
+    var table = {
+        players: 0,
+        current_turn: undefined,
+        status: waiting,
+        small_blind: 10,
+        big_blind: 20,
+        time_per_turn: 10000,
+        current_dealer: undefined,
+        current_bet: 0,
+        max_players: 5,
+        count_players: 0,
+        players: [],
+        deck: undefined
+    };
 
-table.addPlayer = function(player){
-    this.players.push(player);
-    this.count_players = this.players.length;
-};
+    table.acceptsNewPlayers = function(){
+        return this.count_players < this.max_players;
+    };
 
-table.atLeastTwoPlayers = function(){
-    return this.count_players >= 2;
-};
+    table.addPlayer = function(player){
+        this.players.push(player);
+        this.count_players = this.players.length;
+    };
 
-table.startGame = function(deck, game){
-    if(this.status === playing){
-        throw 'Current status is "playing"';
-    }
-    this.status = playing;
+    table.atLeastTwoPlayers = function(){
+        return this.count_players >= 2;
+    };
 
-    this.deck = deck;
-    this.deck.shuffle();
+    table.startGame = function(deck, game){
+        if(this.status === playing){
+            throw 'Current status is "playing"';
+        }
+        this.status = playing;
 
-    this.players = game.assignDealerBlinds(this.players, this.small_blind, this.big_blind);
-    this.players = game.dealCards(this.players, this.deck);
+        this.deck = deck;
+        this.deck.shuffle();
+
+        this.players = game.assignDealerBlinds(this.players, this.small_blind, this.big_blind);
+        this.players = game.dealCards(this.players, this.deck);
+    };
+
+    return table;
 };

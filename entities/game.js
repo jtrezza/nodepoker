@@ -1,37 +1,44 @@
 
+var _    = require('underscore/underscore-min.js');
 
-var game = module.exports = {
-    bet: 0
-};
+module.exports = function(){
 
-game.assignDealerBlinds = function(players, smallBlind, bigBlind){
-
-    var mapCallback = function(player, index){
-
-        var newPlayer = Object.create(player);
-        if(index === 0){
-            newPlayer.dealer = true;
-        }else if(index === 1){
-            newPlayer.blind = smallBlind;
-        }else if(index === 2){
-            newPlayer.blind = bigBlind;
-        }
-
-        return newPlayer;
+    var game = {
+        bet: 0
     };
 
-    return players.map(mapCallback);
-};
+    game.assignDealerBlinds = function(players, smallBlind, bigBlind){
 
-game.dealCards = function(players, deck){
+        var mapCallback = function(player, index){
 
-    newPlayers = Object.create(players);
+            var newPlayer = _.extend({}, player);
 
-    var forEachCallback = function(player){
-        player.ownCards.push(deck.takeCard(), deck.takeCard());
+            if(index === 0){
+                newPlayer.dealer = true;
+            }else if(index === 1){
+                newPlayer.blind = smallBlind;
+            }else if(index === 2){
+                newPlayer.blind = bigBlind;
+            }
+
+            return newPlayer;
+        };
+
+        return players.map(mapCallback);
     };
 
-    newPlayers.forEach(forEachCallback);
+    game.dealCards = function(players, deck){
 
-    return newPlayers;
+        var mapCallback = function(player){
+
+            var newPlayer = _.extend({}, player);
+            newPlayer.ownCards.push(deck.takeCard(), deck.takeCard());
+
+            return newPlayer;
+        };
+
+        return players.map(mapCallback);
+    };
+
+    return game;
 };

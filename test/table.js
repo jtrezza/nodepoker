@@ -1,6 +1,6 @@
 
 var test = require('tape'),
-    table = require('../entities/table.js');
+    table = require('../entities/table.js')();
 
 test("Controlling the number of players", function(t){
 

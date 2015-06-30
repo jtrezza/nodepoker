@@ -4,8 +4,8 @@ var test = require('tape'),
 
 test("Testing deck's functionality", function(t){
 
-    var deckA = Object.create(deck);
-    var deckB = Object.create(deck);
+    var deckA = deck();
+    var deckB = deck();
 
     t.deepEqual(deckA.cards, deckB.cards, "Decks should initially have the same order");
 

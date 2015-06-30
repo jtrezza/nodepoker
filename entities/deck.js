@@ -1,7 +1,9 @@
 
-var _ = require('underscore'),
+var _ = require('underscore/underscore-min.js');
 
-    deck = module.exports = {
+module.exports = function(){
+
+    var deck = {
         cards: [
             {name:"2c", font:'o', color:'black'},
             {name:"2d", font:'B', color:'red'},
@@ -59,23 +61,26 @@ var _ = require('underscore'),
         outed: []
     };
 
-deck.shuffle = function(){
-    this.cards = _.shuffle(this.cards);
-};
+    deck.shuffle = function(){
+        this.cards = _.shuffle(this.cards);
+    };
 
-deck.areThereCards = function()
-{
-    return (this.cards.length > 0);
-}
+    deck.areThereCards = function()
+    {
+        return (this.cards.length > 0);
+    };
 
-deck.takeCard = function(){
+    deck.takeCard = function(){
 
-    if(this.areThereCards()){
-        var card = this.cards.shift();
-        this.outed.push(card);
+        if(this.areThereCards()){
+            var card = this.cards.shift();
+            this.outed.push(card);
 
-        return card;
-    }else{
-        return false;
-    }
+            return card;
+        }else{
+            return false;
+        }
+    };
+
+    return deck;
 };
