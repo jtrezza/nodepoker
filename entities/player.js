@@ -1,14 +1,19 @@
 
-var player = module.exports = function(username, chips){
+var player = module.exports = function(properties){
 
-        var user = username || undefined,
-            poker_chips = chips || 1000;
-
-        return {
-            username: user,
-            poker_chips: poker_chips,
+        var player = {
             dealer: false,
             blind: 0,
             ownCards: []
         };
+
+        for (var p in properties ){
+          player[p] = properties[p];
+        }
+
+        if(typeof properties.chips == 'undefined'){
+          player.chips = 1000;
+        }
+
+        return player;
     };

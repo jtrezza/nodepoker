@@ -6,17 +6,18 @@ module.exports = function(){
 
     var table = {
         players: 0,
-        current_turn: undefined,
+        bet: 0,
         status: waiting,
         small_blind: 10,
         big_blind: 20,
         time_per_turn: 10000,
-        current_dealer: undefined,
         current_bet: 0,
         max_players: 5,
         count_players: 0,
         players: [],
-        deck: undefined
+        deck: undefined,
+        game: undefined,
+        current_turn: undefined
     };
 
     table.acceptsNewPlayers = function(){
@@ -36,6 +37,7 @@ module.exports = function(){
         if(this.status === playing){
             throw 'Current status is "playing"';
         }
+        this.game = game;
         this.status = playing;
 
         this.deck = deck;
@@ -43,6 +45,8 @@ module.exports = function(){
 
         this.players = game.assignDealerBlinds(this.players, this.small_blind, this.big_blind);
         this.players = game.dealCards(this.players, this.deck);
+
+        return this.game['turn'].call(this);
     };
 
     return table;

@@ -9,10 +9,10 @@ var test = require('tape'),
 
 test("Before all tests", function (t) {
 
-    playerA = player('Player A'),
-    playerB = player('Player B'),
-    playerC = player('Player C'),
-    playerD = player('Player D'),
+    playerA = player({username: 'Player A', socketid: 0}),
+    playerB = player({username: 'Player B', socketid: 0}),
+    playerC = player({username: 'Player C', socketid: 0}),
+    playerD = player({username: 'Player D', socketid: 0}),
     players = [playerA, playerB, playerC, playerD],
     game    = gameModule();
 

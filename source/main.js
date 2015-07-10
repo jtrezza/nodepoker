@@ -12,6 +12,10 @@ $(document).on('ready', function(){
     socket.on('table_full', function(msg){
         alert(msg);
     });
+
+    socket.on('turn', function(msg){
+        alert('game has begun');
+    });
     /*var form = document.getElementById('formMessage');
     form.addEventListener('submit', function(){
         var message = document.getElementById('txtMessage').value;

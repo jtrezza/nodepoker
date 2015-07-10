@@ -1,11 +1,13 @@
 
 var _    = require('underscore/underscore-min.js');
 
-module.exports = function(){
+module.exports = function(properties){
 
-    var game = {
-        bet: 0
-    };
+    var game = {};
+
+    for (var p in properties ){
+        game[p] = properties[p];
+    }
 
     game.assignDealerBlinds = function(players, smallBlind, bigBlind){
 
@@ -38,6 +40,22 @@ module.exports = function(){
         };
 
         return players.map(mapCallback);
+    };
+
+    //Function written to be invoked using 'call'
+    game.turn = function(){
+        if(this.players.length > 3){
+          var current_turn = 3;
+        } else {
+          var current_turn = (this.players.length) - 1;
+        }
+        this.current_turn = current_turn;
+        var currentBet = this.bet;
+
+        var infoAll = {yourTurn: false, currentBet: currentBet};
+        var infoCurrentPlayer = {yourTurn: true, currentBet: currentBet};
+
+        return {all: infoAll, currentPlayer: infoCurrentPlayer}
     };
 
     return game;

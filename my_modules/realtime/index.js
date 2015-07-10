@@ -1,13 +1,12 @@
 'use strict'
 
 var socketio    = require('socket.io'),
-    table       = require('../../entities/table.js')(),
+    pokerTable  = require('../../entities/table.js')(),
     player      = require('../../entities/player.js'),
     deck        = require('../../entities/deck.js'),
     game        = require('../../entities/game.js'),
     EventEmitter = require("events").EventEmitter,
     unnamedPlayersCount = 0,
-    pokerTable = Object.create(table),
     ee = new EventEmitter();
 
 /**
@@ -32,7 +31,7 @@ module.exports = function(server){
         socket.on('username_chosen', function(username){
             username = (username === "Unnamed") ? (username + " " + ++unnamedPlayersCount) : username;
 
-            var newPlayer = player(username);
+            var newPlayer = player({username: username, socketid: socket.id});
             console.log(newPlayer)
             ee.emit('new_player_ready', newPlayer);
         });
@@ -45,7 +44,9 @@ module.exports = function(server){
                     //TODO: Crear método startGame en table. Que reparta cartas, asigne ciegas, y probar
                     //a enviarle el socket, a ver si puede enviar los eventos desde allá.
                     //TODO: Como segunda opción, probar a enviarle callbacks que estén aquí como parámetro.
-                    pokerTable.startGame(deck(), game());
+                    var info = pokerTable.startGame(deck(), game());
+                    socket.emit('turn', info.currentPlayer);
+                    socket.broadcast.emit('turn', info.all);
                 }
             }else{
                 socket.emit('table_full', 'The table was filled while you was choosing your username.');
